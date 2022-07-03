@@ -1,10 +1,6 @@
 import axios from 'axios';
 
 export default class SearchAPIService {
-  //   constructor() {
-  //     this.searchQuery = '';
-  //   }
-
   fetchPictures(pageNum, searchQuery) {
     const BASE_URL = 'https://pixabay.com/api/';
 
@@ -22,11 +18,4 @@ export default class SearchAPIService {
 
     return axios.get(BASE_URL, options);
   }
-
-  //   get query() {
-  //     return this.searchQuery;
-  //   }
-  //   set query(newQuery) {
-  //     this.searchQuery = newQuery;
-  //   }
 }
