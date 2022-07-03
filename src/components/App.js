@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Notify } from 'notiflix';
 import SearchAPIService from 'components/SearchApiService';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
@@ -20,7 +20,7 @@ export default function App() {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
 
-  const searchApi = new SearchAPIService();
+  const searchApi = useMemo(() => new SearchAPIService(), []);
 
   useEffect(() => {
     if (searchQuery === '') {

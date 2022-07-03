@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import './Modal.css';
@@ -6,6 +6,14 @@ import './Modal.css';
 const modal = document.querySelector('#modal-root');
 
 export default function Modal({ info, onClose }) {
+  const handleKeyDown = useMemo(() => {
+    return function handleKeyDown(evt) {
+      if (evt.code === 'Escape') {
+        onClose();
+      }
+    };
+  }, [onClose]);
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
@@ -15,12 +23,6 @@ export default function Modal({ info, onClose }) {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [handleKeyDown]);
-
-  function handleKeyDown(evt) {
-    if (evt.code === 'Escape') {
-      onClose();
-    }
-  }
 
   function handleBackdropClick(evt) {
     if (evt.currentTarget === evt.target) {
