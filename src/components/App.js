@@ -44,7 +44,7 @@ export default function App() {
         setError(error.message);
         setStatus('rejected');
       });
-  }, [searchQuery]);
+  }, [searchApi, searchQuery]);
 
   function buttonClickHandler() {
     setPage(prevState => prevState + 1);
