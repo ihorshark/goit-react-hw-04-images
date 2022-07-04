@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import './Modal.css';
+import s from './Modal.module.css';
 
 const modal = document.querySelector('#modal-root');
 
@@ -31,8 +31,8 @@ export default function Modal({ info, onClose }) {
   }
 
   return createPortal(
-    <div className="Overlay" onClick={handleBackdropClick}>
-      <div className="Modal">
+    <div className={s.Overlay} onClick={handleBackdropClick}>
+      <div className={s.Modal}>
         <img src={info.url} alt={info.alt} />
       </div>
     </div>,
@@ -41,6 +41,9 @@ export default function Modal({ info, onClose }) {
 }
 
 Modal.propTypes = {
-  info: PropTypes.object,
-  onClose: PropTypes.func,
+  info: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+  }),
+  onClose: PropTypes.func.isRequired,
 };

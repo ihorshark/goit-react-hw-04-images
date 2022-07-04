@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ImageGallery.css';
+import s from './ImageGallery.module.css';
+
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 export default function ImageGallery({ onClick, images }) {
   return (
     <div>
-      <ul className="ImageGallery">
+      <ul className={s.ImageGallery}>
         {images.map(image => {
           return (
-            <ImageGalleryItem image={image} key={image.id} onClick={onClick} />
+            <li
+              className={s.ImageGalleryItem}
+              key={image.id}
+              onClick={() => onClick(image.largeImageURL, image.tags)}
+            >
+              <ImageGalleryItem image={image} />
+            </li>
           );
         })}
       </ul>
@@ -18,8 +25,6 @@ export default function ImageGallery({ onClick, images }) {
 }
 
 ImageGallery.propTypes = {
-  onClick: PropTypes.func,
-  state: PropTypes.shape({
-    images: PropTypes.array.isRequired,
-  }),
+  onClick: PropTypes.func.isRequired,
+  images: PropTypes.arrayOf(PropTypes.object.isRequired),
 };

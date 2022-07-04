@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Notify } from 'notiflix';
-import './Searchbar.css';
+import s from './Searchbar.module.css';
 
 export default function Searchbar({ onSubmit }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,14 +21,14 @@ export default function Searchbar({ onSubmit }) {
   }
 
   return (
-    <header className="Searchbar">
-      <form className="SearchForm" onSubmit={onFormSubmit}>
-        <button type="submit" className="SearchForm-button">
-          <span className="SearchForm-button-label">Search</span>
+    <header className={s.Searchbar}>
+      <form className={s.SearchForm} onSubmit={onFormSubmit}>
+        <button type="submit" className={s.SearchForm__button}>
+          <span className={s.SearchForm__button__label}>Search</span>
         </button>
 
         <input
-          className="SearchForm-input"
+          className={s.SearchForm__input}
           type="text"
           value={searchQuery}
           onChange={onInputChange}
@@ -42,5 +42,5 @@ export default function Searchbar({ onSubmit }) {
 }
 
 Searchbar.propTypes = {
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };
