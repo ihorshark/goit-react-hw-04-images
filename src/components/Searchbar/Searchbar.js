@@ -17,7 +17,7 @@ export default function Searchbar({ onSubmit }) {
     }
     evt.preventDefault();
     onSubmit(searchQuery);
-    setSearchQuery('');
+    // setSearchQuery('');
   }
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { Notify } from 'notiflix';
 import SearchAPIService from 'components/SearchApiService';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
@@ -21,6 +21,7 @@ export default function App() {
   const [error, setError] = useState(null);
 
   const searchApi = useMemo(() => new SearchAPIService(), []);
+  let total = useRef(0);
 
   useEffect(() => {
     if (searchQuery === '') {
@@ -38,6 +39,7 @@ export default function App() {
           return;
         }
         setImages([...res.data.hits]);
+        total.current = res.data.total;
         setStatus('resolved');
       })
       .catch(error => {
@@ -93,7 +95,9 @@ export default function App() {
           onClick={onImageClick}
         />
       )}
-      {status === 'resolved' && <Button onClick={buttonClickHandler} />}
+      {status === 'resolved' && total.current > images.length && (
+        <Button onClick={buttonClickHandler} />
+      )}
       {status === 'rejected' && <h1>{error}</h1>}
 
       {showModal && <Modal info={imageInfo} onClose={toggleModal} />}
